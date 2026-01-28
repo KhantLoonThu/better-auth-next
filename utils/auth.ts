@@ -3,11 +3,11 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 /**
- * Author : Khant Loon Thu
- * Date   : 2026-01-28
- *
  * Safely fetch the current authentication session.
  * This function NEVER redirects.
+ * 
+ * @author Khant Loon Thu
+ * @since  2026-01-28
  */
 export const getAuthSession = async () => {
     try {
@@ -21,11 +21,11 @@ export const getAuthSession = async () => {
 };
 
 /**
- * Author : Khant Loon Thu
- * Date   : 2026-01-28
- * 
  * Requires authentication.
  * Redirects if the user is not authenticated.
+ * 
+ * @author Khant Loon Thu
+ * @since  2026-01-28
  */
 export const requireAuth = async (redirectTo = "/sign-in") => {
     const session = await getAuthSession();
@@ -39,22 +39,22 @@ export const requireAuth = async (redirectTo = "/sign-in") => {
 
 
 /**
- * Author : Khant Loon Thu
- * Date   : 2026-01-28
- * 
  * Optional authentication.
  * Returns session if logged in, otherwise null.
+ *  
+ * @author Khant Loon Thu
+ * @since  2026-01-28
  */
 export const optionalAuth = async () => {
     return await getAuthSession();
 };
 
-/**
- * Author : Khant Loon Thu
- * Date   : 2026-01-28
- * 
+/** 
  * Redirects authenticated users away from guest-only pages
  * (e.g. sign-in, sign-up).
+ * 
+ * @author Khant Loon Thu
+ * @since  2026-01-28
  */
 export const redirectIfAuthenticated = async (
     redirectTo = "/"
