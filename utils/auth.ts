@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 
 /**
  * Safely fetch the current authentication session.
@@ -9,20 +10,23 @@ import { redirect } from "next/navigation";
  * @author Khant Loon Thu
  * @since  2026-01-28
  */
-export const getAuthSession = async () => {
+export const getAuthSession = cache(async () => {
     try {
+        const headerList = await headers();
+
         return await auth.api.getSession({
-            headers: await headers(),
+            headers: headerList,
         });
     } catch (error) {
         console.error("Failed to fetch auth session:", error);
         return null;
     }
-};
+});
 
 /**
  * Requires authentication.
  * Redirects if the user is not authenticated.
+ * (e.g. Dashboard pages)
  * 
  * @author Khant Loon Thu
  * @since  2026-01-28
