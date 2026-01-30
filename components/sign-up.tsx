@@ -26,7 +26,6 @@ import { Spinner } from "@/components/ui/spinner";
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 /**
  * Zod schema for Sign Up form validation.
@@ -64,8 +63,6 @@ const formSchema = z
  * @since  2026-01-28
  */
 export function SignUpForm() {
-  const router = useRouter();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -88,11 +85,11 @@ export function SignUpForm() {
         name: data.name,
         email: data.email,
         password: data.password,
+        callbackURL: "/",
       },
       {
         onSuccess: () => {
           toast.success("Signed up successfully.");
-          router.push("/");
         },
         onError: (ctx) => {
           console.error("Sign up error:", ctx.error);
